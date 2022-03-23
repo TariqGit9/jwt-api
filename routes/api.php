@@ -27,4 +27,5 @@ Route::group([
     Route::post('login', 'AuthController@login')->name('login');
     Route::post('me', 'AuthController@me')->name('me');
     Route::post('logout', 'AuthController@logout')->name('logout');
+    
 });
