@@ -24,14 +24,14 @@ class AuthController extends Controller
         $rules = [
             'name' => 'unique:users|required',
             'email'    => 'unique:users|required',
-            'password' => 'required',
+            // 'password' => 'required',
+            'password' =>['required','min:12', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/'],
+
         ];
-    
         $input     = $request->only('name', 'email','password');
         $validator = Validator::make($input, $rules);
-    
         if ($validator->fails()) {
-            return response()->json(['success' => false, 'error' => 'Custom Message for each Error']);
+            return response()->json(['success' => false, 'error' => $validator->errors()]);
         }
         $name = $request->name;
         $email    = $request->email;
